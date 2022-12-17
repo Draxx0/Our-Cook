@@ -30,7 +30,7 @@ const recipeSchema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: "Comment",
-    },
+    }
   ],
   createdAt: {
     type: Date,

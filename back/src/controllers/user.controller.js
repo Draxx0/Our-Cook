@@ -77,7 +77,7 @@ const UserController = {
   },
   getAll: async (req, res) => {
     try {
-      const user = await User.find().populate("chef");
+      const user = await User.find().populate("chef").populate("comments");
       res.send(user);
     } catch (error) {
       res.status(400).send({ message: error.message });
