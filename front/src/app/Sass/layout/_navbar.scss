@@ -1,0 +1,54 @@
+nav {
+ position: absolute;
+ top: 0;
+ left: 0;
+ z-index: 10;
+ width: 100%;
+ transition: .2s ease-in-out all;
+
+ .nav-wrapper {
+  padding: 30px 20px;
+  display: flex;
+  align-items: flex-end;
+  gap: 111px;
+
+  .nav-logo {
+   font-family: $title-font;
+   font-size: $large;
+  }
+
+  .nav-list {
+   display: flex;
+   align-items: center;
+   gap: 111px;
+
+   .nav-item {
+    position: relative;
+    font-size: $small;
+    font-weight: $medium-weight;
+
+    &::before {
+     position: absolute;
+     bottom: -5px;
+     left: 0;
+     content: '';
+     display: block;
+     width: 0;
+     height: 2px;
+     background-color: $secondary-color;
+     transition: width .3s;
+    }
+
+    &:hover::before {
+     width: 100%;
+    }
+   }
+  }
+ }
+}
+
+.scroll-nav {
+ position: fixed;
+ background-color: $main-color;
+ box-shadow: 0px 6px 20px rgba(6, 6, 30, 0.1);
+}
