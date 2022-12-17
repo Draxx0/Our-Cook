@@ -38,7 +38,7 @@ const RecipeController = {
   },
   getAll: async (req, res) => {
     try {
-      const recipe = await Recipe.find().populate("chef");
+      const recipe = await Recipe.find().populate("chef").populate("favorites");
       res.send(recipe);
     } catch (error) {
       res.status(400).send({ message: error.message });

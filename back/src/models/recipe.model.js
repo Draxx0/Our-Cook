@@ -18,10 +18,12 @@ const recipeSchema = new Schema({
     type: Number,
     default: null,
   },
-  isFavorite: {
-    type: Boolean,
-    default: false,
-  },
+  favorites: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Favorite",
+    },
+  ],
   chef: {
     type: Schema.Types.ObjectId,
     ref: "Chef",
@@ -30,7 +32,7 @@ const recipeSchema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: "Comment",
-    }
+    },
   ],
   createdAt: {
     type: Date,

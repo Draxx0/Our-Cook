@@ -7,6 +7,7 @@ const userRouter = require("./src/routers/user.router");
 const recipeRouter = require("./src/routers/recipe.router");
 const chefRouter = require("./src/routers/chef.router");
 const commentRouter = require("./src/routers/comment.router");
+const favoriteRouter = require("./src/routers/favorite.router");
 const authRouter = require("./src/routers/auth.router");
 const connect = require("./config/mongoose.config");
 
@@ -23,6 +24,7 @@ app.use("/api", userRouter);
 app.use("/api", recipeRouter);
 app.use("/api", chefRouter);
 app.use("/api", commentRouter);
+app.use("/api", favoriteRouter);
 app.use("/api", authRouter);
 
 app.listen(port, () => {
