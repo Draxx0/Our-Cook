@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../Sass/main.scss";
 
-const Navbar = () => {
+const Navbar = ({ isLogged }) => {
   const [windowScroll, setWindowScroll] = useState(false);
 
   const detectScroll = () => {
@@ -37,10 +37,27 @@ const Navbar = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/auth" className="nav-link">
-              Déconnexion
-            </Link>
+            {isLogged ? (
+              <Link
+                to="/login"
+                onClick={() => sessionStorage.clear()}
+                className="nav-link"
+              >
+                Déconnexion
+              </Link>
+            ) : (
+              <Link to="/login" className="nav-link">
+                Connexion
+              </Link>
+            )}
           </li>
+          {isLogged && (
+            <li className="nav-item">
+              <Link to="/profile" className="nav-link">
+                Profil
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
     </nav>

@@ -16,3 +16,22 @@
   border: solid 2px white;
  }
 }
+
+@mixin blackYellowButton {
+ position: relative;
+ background-color: $secondary-color;
+ color: $main-color;
+ transition: .3s ease-in-out all;
+ padding: 10px 25px;
+ font-size: $small;
+ font-weight: $medium;
+ cursor: pointer;
+ font-family: $text-font;
+ border-radius: 10px;
+ width: fit-content;
+ border: solid 2px transparent;
+
+ &:hover {
+  border: solid 2px white;
+ }
+}

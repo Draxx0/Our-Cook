@@ -1,3 +1,7 @@
 .yellow-black-button{
  @include yellowBlackButton;
 }
+
+.black-yellow-button{
+ @include blackYellowButton;
+}

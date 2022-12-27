@@ -3,10 +3,11 @@ import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import Layout from "./app/layouts/Layout";
 import MainRouter from "./app/routes/MainRouter";
-import recipeServices from "./services/recipe.services";
+import recipeServices from "./setup/services/recipe.services";
 
 function App() {
   const [recipes, setRecipes] = useState([]);
+  const [isLogged, setIsLogged] = useState(false);
 
   const fetchRecipes = async () => {
     try {
@@ -20,12 +21,18 @@ function App() {
 
   useEffect(() => {
     fetchRecipes();
+    sessionStorage.getItem("token") && setIsLogged(true);
   }, []);
+  console.log(isLogged);
 
   return (
     <BrowserRouter>
-      <Layout>
-        <MainRouter recipes={recipes} />
+      <Layout isLogged={isLogged}>
+        <MainRouter
+          recipes={recipes}
+          isLogged={isLogged}
+          setIsLogged={setIsLogged}
+        />
       </Layout>
     </BrowserRouter>
   );

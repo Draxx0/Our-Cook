@@ -7,8 +7,8 @@ const findAll = async () => {
   return response.data;
 };
 
-const create = async (credentials) => {
-  const response = await instance.post(END_POINT, credentials);
+const findeOne = async (id) => {
+  const response = await instance.get(`${END_POINT}/${id}`);
   return response.data;
 };
 
@@ -18,7 +18,7 @@ const remove = async (id) => {
 
 const userServices = {
   findAll,
-  create,
+  findeOne,
   remove,
 };
 
