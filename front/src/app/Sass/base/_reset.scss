@@ -4,10 +4,6 @@
  box-sizing: border-box;
 }
 
-html {
- scroll-behavior: smooth;
-}
-
 html,
 body,
 div,
@@ -83,6 +79,56 @@ a,
 li,
 label {
  font-family: $text-font;
+}
+
+textarea {
+ resize: none;
+}
+
+input,
+textarea,
+select {
+ padding: 10px 20px;
+ outline: none;
+ border-radius: 10px;
+ border: solid 2px $secondary-color;
+}
+
+input::placeholder,
+textarea::placeholder {
+ transition: .3s ease-in-out all;
+ font-weight: 500;
+}
+
+input:focus::placeholder,
+textarea:focus::placeholder {
+ color: transparent;
+ transform: translateX(5px)
+}
+
+.row {
+ display: flex;
+}
+
+.alignCenter {
+ align-items: center;
+}
+
+.spaceBtwn {
+ justify-content: space-between;
+}
+
+.column {
+ display: flex;
+ flex-direction: column;
+}
+
+.colored {
+ color: $main-color;
+}
+
+.bold {
+ font-weight: $bold;
 }
 
 ::-webkit-scrollbar {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import authServices from "../../../setup/services/auth.services";
 
@@ -9,7 +9,6 @@ const SignUp = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCredentials({ ...credentials, [name]: value });
-    console.log(credentials);
   };
 
   const handleSubmit = async (e) => {
@@ -22,9 +21,15 @@ const SignUp = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="sign-up">
-      <form onSubmit={handleSubmit}>
+      <div className="overlay"></div>
+      <form className="signup-form" onSubmit={handleSubmit}>
+        <span className="auth-logo">Our Cook</span>
         <div className="form-group">
           <label htmlFor="firstName">Prénom</label>
           <input

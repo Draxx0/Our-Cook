@@ -1,0 +1,69 @@
+.log-in, .sign-up {
+ position: relative;
+ height: 100vh;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ background-size: cover;
+ background-repeat: no-repeat;
+ margin-top: 98px;
+}
+
+.log-in{
+ background-image: url('../../assets/images/login.webp')
+}
+
+.sign-up{
+ background-image: url('../../assets/images/signup.webp')
+}
+
+.overlay {
+ background-color: rgba(0, 0, 0, 0.5);
+ height: 100%;
+ width: 100%;
+ position: absolute;
+ z-index: 1;
+}
+
+.auth-logo {
+ font-family: $title-font;
+ font-size: $large;
+}
+
+.signup-form, .login-form {
+ display: flex;
+ flex-direction: column;
+ gap: 60px;
+ align-items: center;
+ justify-content: center;
+ background-color: $main-color;
+ padding: 40px;
+ border-radius: 8px;
+ box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+ z-index: 2;
+ width: 60%;
+ height: auto;
+ border: solid 4px $secondary-color;
+ background-image: url('../../assets/images/bg.png');
+ background-size: cover;
+ background-repeat: no-repeat;
+ background-position: center;
+
+ .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 80%;
+
+  label{
+   font-size: $small;
+   font-weight: $medium-weight;
+  }
+
+  input{
+   width: 100%;
+   padding: 10px 20px;
+   
+  }
+ }
+}

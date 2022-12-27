@@ -15,11 +15,13 @@ const Navbar = ({ isLogged }) => {
 
   useEffect(() => {
     window.addEventListener("scroll", detectScroll);
-  }, []);
+  }, [isLogged]);
   return (
-    <nav className={windowScroll && "scroll-nav"}>
+    <nav className={windowScroll ? "scroll-nav" : ""}>
       <div className="nav-wrapper">
-        <span className="nav-logo">Our Cook</span>
+        <Link to="/" className="nav-logo">
+          Our Cook
+        </Link>
         <ul className="nav-list">
           <li className="nav-item">
             <Link to="/discover" className="nav-link">
@@ -51,6 +53,13 @@ const Navbar = ({ isLogged }) => {
               </Link>
             )}
           </li>
+          {!isLogged && (
+            <li className="nav-item">
+              <Link to="/signup" className="nav-link">
+                Créer un compte
+              </Link>
+            </li>
+          )}
           {isLogged && (
             <li className="nav-item">
               <Link to="/profile" className="nav-link">

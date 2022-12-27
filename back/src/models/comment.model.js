@@ -6,6 +6,10 @@ const commentSchema = new Schema({
     type: String,
     required: true,
   },
+  stars: {
+    type: Number,
+    required: true,
+  },
   user: {
     type: Schema.Types.ObjectId,
     ref: "User",

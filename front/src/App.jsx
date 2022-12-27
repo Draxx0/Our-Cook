@@ -3,9 +3,11 @@ import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import Layout from "./app/layouts/Layout";
 import MainRouter from "./app/routes/MainRouter";
+import userServices from "./setup/services/user.services";
 import recipeServices from "./setup/services/recipe.services";
 
 function App() {
+  const [users, setUsers] = useState([]);
   const [recipes, setRecipes] = useState([]);
   const [isLogged, setIsLogged] = useState(false);
 
@@ -13,7 +15,15 @@ function App() {
     try {
       const response = await recipeServices.findAll();
       setRecipes(response);
-      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchUsers = async () => {
+    try {
+      const response = await userServices.findAll();
+      setUsers(response);
     } catch (error) {
       console.log(error);
     }
@@ -21,14 +31,15 @@ function App() {
 
   useEffect(() => {
     fetchRecipes();
+    fetchUsers();
     sessionStorage.getItem("token") && setIsLogged(true);
   }, []);
-  console.log(isLogged);
 
   return (
     <BrowserRouter>
       <Layout isLogged={isLogged}>
         <MainRouter
+          users={users}
           recipes={recipes}
           isLogged={isLogged}
           setIsLogged={setIsLogged}

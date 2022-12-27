@@ -9,6 +9,13 @@ const CommentController = {
 
       const recipe = await Recipe.findById(req.body.recipe);
       recipe.comments.push(comment);
+      const comments = await Comment.find();
+       const commentStars = comments.map(comment => {
+        return comment.stars
+      })
+      recipe.stars = commentStars.reduce((a, b) => a + b, 0) / comments.length;
+
+
       await recipe.save();
 
       const user = await User.findById(req.body.user);

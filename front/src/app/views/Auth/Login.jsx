@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import authServices from "../../../setup/services/auth.services";
 
@@ -10,7 +10,6 @@ const Login = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCredentials({ ...credentials, [name]: value });
-    console.log(credentials);
   };
 
   const handleSubmit = async (e) => {
@@ -21,15 +20,21 @@ const Login = () => {
       navigate("/");
       console.log(response);
     } catch (error) {
-     alert("Email ou mot de passe incorrect");
+      alert("Email ou mot de passe incorrect");
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="log-in">
-      <form onSubmit={handleSubmit}>
+      <div className="overlay"></div>
+      <form className="login-form" onSubmit={handleSubmit}>
+        <span className="auth-logo">Our Cook</span>
         <div className="form-group">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">Votre email</label>
           <input
             type="email"
             className="form-control"
@@ -42,18 +47,22 @@ const Login = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">Votre mot de passe</label>
           <input
             type="password"
             className="form-control"
             name="password"
             id="password"
-            placeholder="Password"
+            placeholder="***********"
             onChange={handleChange}
           />
         </div>
 
-        <input type="submit" value="Connexion" className="black-yellow-button"/>
+        <input
+          type="submit"
+          value="Connexion"
+          className="black-yellow-button"
+        />
       </form>
     </div>
   );

@@ -58,7 +58,11 @@ const Footer = () => {
               </li>
 
               <li className="footer-list-infos">
-                <Link className="footer-list-link" to="/auth">Déconnexion</Link>
+                <Link className="footer-list-link" to="/become-chef">Devenir Chef(fe)</Link>
+              </li>
+
+              <li className="footer-list-infos">
+                <Link className="footer-list-link" to="/login" onClick={() => sessionStorage.clear()}>Déconnexion</Link>
               </li>
             </ul>
           </div>

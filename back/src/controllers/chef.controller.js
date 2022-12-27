@@ -1,5 +1,6 @@
 const Chef = require("../models/chef.model");
 const User = require("../models/user.model");
+const Recipe = require("../models/recipe.model");
 
 const ChefController = {
   create: async (req, res) => {
@@ -17,6 +18,13 @@ const ChefController = {
   delete: async (req, res) => {
     try {
       const deleteChef = await Chef.findByIdAndDelete(req.params.id);
+      const recipes = await Recipe.find();
+
+      recipes.forEach(async (recipe) => {
+        if (recipe.chef == req.params.id) {
+          await Recipe.findByIdAndDelete(recipe._id);
+        }
+      });
       res.send(deleteChef);
     } catch (error) {
       res.status(400).send({ message: error.message });

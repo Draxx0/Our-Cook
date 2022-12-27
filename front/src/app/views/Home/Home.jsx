@@ -7,15 +7,19 @@ import Familly from "../../assets/images/familly.jpg";
 import { Link } from "react-router-dom";
 import RegularHeart from "../../assets/icons/regular-heart.svg";
 import FillHeart from "../../assets/icons/fill-heart.svg";
+import Star from "../../assets/icons/star.png";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const Home = (recipes) => {
+const Home = ({ recipes, isLogged }) => {
   const [lastThreeRecipes, setLastThreeRecipes] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const lastThreeRecipes = recipes.recipes.slice(-3);
+    window.scrollTo(0, 0);
+    const lastThreeRecipes = recipes.slice(-3);
     setLastThreeRecipes(lastThreeRecipes);
-  }, [recipes.recipes]);
+  }, [recipes]);
 
   return (
     <>
@@ -78,7 +82,12 @@ const Home = (recipes) => {
                 appétissante !
               </p>
             </div>
-            <Link className="yellow-black-button">Devenir chef</Link>
+            <Link
+              to={!isLogged ? "/login" : "/become-chef"}
+              className="yellow-black-button"
+            >
+              Devenir chef
+            </Link>
           </div>
         </div>
         <div className="right-container">
@@ -91,7 +100,11 @@ const Home = (recipes) => {
 
         <div className="last-recipes-grid">
           {lastThreeRecipes.map((recipe) => (
-            <div key={recipe._id} className="last-recipes-item">
+            <div
+              key={recipe._id}
+              className="last-recipes-item"
+              onClick={() => navigate(`/recipe/${recipe._id}`)}
+            >
               <div className="recipe-img-wrapper">
                 <img src={recipe.imageUrl} alt="" className="recipe-img" />
                 <div className="favorite">
@@ -103,7 +116,14 @@ const Home = (recipes) => {
               </div>
               <h3 className="recipe-title">{recipe.title}</h3>
               <p className="recipe-star">
-                {recipe.stars === null ? "Non notée" : recipe.stars + "⭐"}
+                {recipe.stars === null ? (
+                  "Non notée"
+                ) : (
+                  <>
+                    <img src={Star} alt="" />
+                    {recipe.stars}
+                  </>
+                )}
               </p>
             </div>
           ))}

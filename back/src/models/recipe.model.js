@@ -18,6 +18,39 @@ const recipeSchema = new Schema({
     type: Number,
     default: null,
   },
+  calorie: {
+    type: Number,
+    required: true,
+  },
+  time: {
+    type: Number,
+    required: true,
+  },
+  category: {
+    type: String,
+    required: true,
+    enum: ["Petit-déjeuner", "Entrée", "Plat", "Dessert", "Apéritif"],
+  },
+  ingredients: [
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+      quantity: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
+  steps: [
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
   favorites: [
     {
       type: Schema.Types.ObjectId,

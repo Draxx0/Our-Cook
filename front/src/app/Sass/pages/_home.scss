@@ -129,7 +129,7 @@ header {
 
 
    &:hover .recipe-img {
-   filter: brightness(70%);
+    filter: brightness(70%);
    }
 
    .recipe-img-wrapper {
@@ -161,6 +161,15 @@ header {
       width: 24px;
      }
     }
+   }
+
+
+   .recipe-star {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: $title-font;
+    font-size: 24px;
    }
 
    .recipe-title {

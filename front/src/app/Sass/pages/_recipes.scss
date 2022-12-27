@@ -1,0 +1,139 @@
+.recipes-header {
+ position: relative;
+ background-image: url('../../assets/images/familly-2.jpg');
+ background-size: cover;
+ background-repeat: no-repeat;
+ height: 100vh;
+
+ .recipes-title {
+  position: absolute;
+  bottom: 20%;
+  left: 10%;
+  font-size: 50px;
+  color: white;
+  width: 50%;
+  z-index: 2;
+ }
+}
+
+.recipes-main {
+ width: 90%;
+ display: flex;
+ flex-direction: column;
+ gap: 100px;
+ margin: 100px auto auto auto;
+
+ .filters-container {
+  display: flex;
+  justify-content: space-between;
+
+  .filter-title {
+   position: relative;
+   width: 80%;
+   height: fit-content;
+
+   input {
+    width: 100%;
+    border: solid 3px $main-color;
+    font-family: $title-font;
+   }
+
+   img {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 24px;
+    cursor: pointer;
+   }
+  }
+
+  .filter-category {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+
+   select {
+    appearance: none;
+    border: solid 3px $main-color;
+    font-family: $title-font;
+    cursor: pointer;
+   }
+  }
+ }
+
+ .recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 100px;
+  justify-items: space-between;
+  margin-bottom: 100px;
+ }
+
+
+ .recipe-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+
+
+
+  &:hover .recipe-img {
+   filter: brightness(70%);
+  }
+
+  .recipe-img {
+   width: 100%;
+   height: 400px;
+   border-radius: 30px;
+   object-fit: cover;
+   transition: .3s ease-in-out all;
+  }
+
+  .recipe-img-wrapper {
+   width: 100%;
+   position: relative;
+
+   .favorite {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 48px;
+    height: 48px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 2px $main-color;
+    cursor: pointer;
+
+    img {
+     width: 24px;
+    }
+   }
+  }
+
+  .recipe-star {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   font-family: $title-font;
+   font-size: 24px;
+  }
+
+  .recipe-title {
+   font-size: $medium;
+   font-weight: $medium;
+   font-family: $text-font;
+  }
+
+ }
+
+ .no-recipe {
+  font-family: $title-font;
+  font-size: 24px;
+  grid-column: 1 / span 3;
+ }
+}
