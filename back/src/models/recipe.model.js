@@ -24,12 +24,34 @@ const recipeSchema = new Schema({
   },
   time: {
     type: Number,
+    default: null,
+  },
+  preparationTime: {
+    type: Number,
     required: true,
+  },
+  cookingTime: {
+    type: Number,
+    required: true,
+  },
+  cost: {
+    type: String,
+    required: true,
+    enum: ["Bon marché", "Abordable", "Coûteux"],
   },
   category: {
     type: String,
     required: true,
     enum: ["Petit-déjeuner", "Entrée", "Plat", "Dessert", "Apéritif"],
+  },
+  difficulty: {
+    type: String,
+    required: true,
+    enum: ["Facile", "Moyen", "Difficile"],
+  },
+  numberOfPeople: {
+    type: Number,
+    required: true,
   },
   ingredients: [
     {
@@ -48,6 +70,42 @@ const recipeSchema = new Schema({
       name: {
         type: String,
         required: true,
+      },
+    },
+  ],
+  utensils: [
+    {
+      name: {
+        type: String,
+        enum: [
+          "Casserole",
+          "Poêle",
+          "Couteau",
+          "Four",
+          "Moule",
+          "Saladier",
+          "Cuillère",
+          "Passoire",
+          "Couvercle",
+          "Pince",
+          "Cuillère à soupe",
+          "Cuillère à café",
+          "Mixeur",
+          "Râpe",
+          "Économe",
+          "Éplucheur",
+          "Égouttoir",
+          "Cocotte",
+          "Couteau à pain",
+          "Pinceau",
+          "Papier sulfurisé",
+          "Cuillère en bois",
+          "Mijoteuse",
+          "Balance de cuisine",
+        ],
+      },
+      imageUrl: {
+        type: String,
       },
     },
   ],

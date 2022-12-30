@@ -5,18 +5,33 @@ import moment from "moment";
 import "moment/locale/fr";
 import Clock from "../../assets/icons/clock.png";
 import Star from "../../assets/icons/star.png";
+import Broccoli from "../../assets/icons/Broccoli.png";
+import Pastry from "../../assets/icons/pastrybag.png";
+import People from '../../assets/icons/people.png'
+import Utensils from "../../assets/icons/utensils.png";
+import utensils from "../../functions/utensilsImgImport";
 
 const RecipePage = ({ recipes, users }) => {
   const [currentRecipe, setCurrentRecipe] = useState({});
   const [comments, setComments] = useState([]);
-  const [currentRecipeTime, setCurrentRecipeTime] = useState(0);
+  const [totalTime, setCurrentTotalTime] = useState(0);
+  const [preparationTime, setCurrentPreparationTime] = useState(0);
+  const [cookingTime, setCurrentCookingTime] = useState(0);
   const [author, setAuthor] = useState({});
   const { id } = useParams();
+  const Test = utensils.filter((utensil) => {
+    return utensil.includes("Couteau");
+  });
 
   const getCurrentRecipe = async () => {
     const currentRecipe = await recipes.find((recipe) => recipe._id === id);
     const author = users.find((user) => user._id === currentRecipe.chef.user);
-    setCurrentRecipeTime(currentRecipe.time * 60 * 1000);
+    setCurrentPreparationTime(currentRecipe.preparationTime * 60 * 1000);
+    setCurrentCookingTime(currentRecipe.cookingTime * 60 * 1000);
+    setCurrentTotalTime(
+      currentRecipe.preparationTime * 60 * 1000 +
+        currentRecipe.cookingTime * 60 * 1000
+    );
     setAuthor(author);
     setCurrentRecipe(currentRecipe);
   };
@@ -59,16 +74,14 @@ const RecipePage = ({ recipes, users }) => {
           />
         </div>
         <div className="right-recipe">
-          <div className="row spaceBtwn">
-            <h1 className="recipe-title">
-              {currentRecipe.title} - {currentRecipe.calorie} kcal
-            </h1>
+          <h1 className="recipe-title">
+            {currentRecipe.title} - {currentRecipe.calorie} kcal
+          </h1>
 
-            <span className="recipe-time">
-              {convertMsToTime(currentRecipeTime)}{" "}
-              <img src={Clock} alt="Icone d'horloge" />
-            </span>
-          </div>
+          <span className="recipe-time">
+            Temps total : {convertMsToTime(totalTime)}{" "}
+            <img src={Clock} alt="Icone d'horloge" />
+          </span>
 
           <span className="recipe-stars">
             {currentRecipe.stars !== null ? (
@@ -81,7 +94,6 @@ const RecipePage = ({ recipes, users }) => {
             )}
           </span>
 
-          
           <span className="recipe-category">
             Type de mets : {currentRecipe.category}
           </span>
@@ -115,8 +127,27 @@ const RecipePage = ({ recipes, users }) => {
       </div>
 
       <div className="recipe-main">
+        <div className="recipe-time-container">
+          <div className="row spaceBtwn">
+            <span className="recipe-time">
+              Temps de préparation : {convertMsToTime(preparationTime)}{" "}
+              <img src={Clock} alt="Icone d'horloge" />
+            </span>
+            <span className="recipe-time">
+              Temps de cuisson : {convertMsToTime(cookingTime)}{" "}
+              <img src={Clock} alt="Icone d'horloge" />
+            </span>
+
+            <span className="recipe-time">
+              Nombre de personnes : {currentRecipe.numberOfPeople}{" "}
+              <img src={People} alt="Icone d'un homme" />
+            </span>
+          </div>
+        </div>
         <div className="recipe-ingredients">
-          <h2 className="recipe-section-title">Ingrédients</h2>
+          <h2 className="recipe-section-title">
+            <img src={Broccoli} alt="Icone Broccoli" /> Ingrédients
+          </h2>
           <ul>
             {currentRecipe.ingredients?.map((ingredient) => (
               <li key={ingredient._id}>
@@ -128,12 +159,36 @@ const RecipePage = ({ recipes, users }) => {
           </ul>
         </div>
 
+        {currentRecipe.utensils?.length > 0 && (
+          <div className="recipe-utensils">
+            <h2 className="recipe-section-title">
+              <img src={Utensils} alt="Icone de ustensiles de cuisine" />{" "}
+              Ustensiles
+            </h2>
+            <div className="utensils-grid">
+              {currentRecipe.utensils?.map((utensil) => (
+                <div className="utensil" key={utensil._id}>
+                  <img
+                    src={utensils.filter((utensilImg) => {
+                      return utensilImg.includes(utensil.name);
+                    })}
+                    alt={utensil.name}
+                  />
+                  <p>{utensil.name}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="recipe-steps">
-          <h2 className="recipe-section-title">Etapes à suivre</h2>
+          <h2 className="recipe-section-title">
+            <img src={Pastry} alt="Icone de poche à douille" /> Etapes à suivre
+          </h2>
           <ul>
             {currentRecipe.steps?.map((step, index) => (
               <li key={step._id}>
-                {index + 1}.{" "}
+                <p className="step-text">Étape {index + 1} </p>
                 {step.name.charAt(0).toUpperCase() + step.name.slice(1)}
               </li>
             ))}
@@ -170,7 +225,7 @@ const RecipePage = ({ recipes, users }) => {
 
           <div className="recipe-comments-grid">
             {comments
-              .filter((comment) => comment.recipe._id === id)
+              .filter((comment) => comment.recipe?._id === id)
               .map((comment) => (
                 <div className="recipe-comment" key={comment._id}>
                   <span className="comment-stars">

@@ -36,6 +36,14 @@ const CommentController = {
       s;
     }
   },
+  deleteAll: async (req, res) => {
+    try {
+      const deleteAllComments = await Comment.deleteMany();
+      res.send(deleteAllComments);
+    } catch (error) {
+      res.status(400).send({ message: error.message });
+    }
+  },
   getAll: async (req, res) => {
     try {
       const comment = await Comment.find().populate("user").populate("recipe");

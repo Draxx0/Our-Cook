@@ -19,7 +19,7 @@ const RecipeController = {
     try {
       const deleteRecipe = await Recipe.findByIdAndDelete(req.params.id);
       const comments = await Comment.find();
-      
+
       comments.forEach(async (comment) => {
         if (comment.recipe == req.params.id) {
           await Comment.findByIdAndDelete(comment._id);
@@ -47,6 +47,15 @@ const RecipeController = {
   getAll: async (req, res) => {
     try {
       const recipe = await Recipe.find().populate("chef").populate("favorites");
+      const utensils = recipe.map((recipe) => {
+        return recipe.utensils;
+      });
+      utensils.forEach((utensil) => {
+        utensil.forEach((utensil) => {
+          utensil.imageUrl = utensil.name + ".png";
+          console.log(utensil.imageUrl);
+        });
+      });
       res.send(recipe);
     } catch (error) {
       res.status(400).send({ message: error.message });
