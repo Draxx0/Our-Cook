@@ -88,8 +88,10 @@ const Recipes = ({ recipes }) => {
                     />
                   </div>
                 </div>
-                <h3 className="recipe-title">{recipe.title}</h3>
-                <p className="recipe-star">
+                <h3 className="recipe-title">
+                  {recipe.title} {recipe.comments.length > 0 && `- ${recipe.comments.length} avis`}
+                </h3>
+                <div className="recipe-star">
                   {recipe.stars === null ? (
                     "Non notée"
                   ) : (
@@ -98,7 +100,7 @@ const Recipes = ({ recipes }) => {
                       {recipe.stars}
                     </>
                   )}
-                </p>
+                </div>
               </div>
             ))
           ) : (

@@ -7,7 +7,7 @@ import Clock from "../../assets/icons/clock.png";
 import Star from "../../assets/icons/star.png";
 import Broccoli from "../../assets/icons/Broccoli.png";
 import Pastry from "../../assets/icons/pastrybag.png";
-import People from '../../assets/icons/people.png'
+import People from "../../assets/icons/people.png";
 import Utensils from "../../assets/icons/utensils.png";
 import utensils from "../../functions/utensilsImgImport";
 
@@ -75,7 +75,8 @@ const RecipePage = ({ recipes, users }) => {
         </div>
         <div className="right-recipe">
           <h1 className="recipe-title">
-            {currentRecipe.title} - {currentRecipe.calorie} kcal
+            {currentRecipe.title} - {currentRecipe.calorie} kcal -{" "}
+            {currentRecipe.category}
           </h1>
 
           <span className="recipe-time">
@@ -92,10 +93,6 @@ const RecipePage = ({ recipes, users }) => {
             ) : (
               <>Non noté</>
             )}
-          </span>
-
-          <span className="recipe-category">
-            Type de mets : {currentRecipe.category}
           </span>
 
           <p className="recipe-description">{currentRecipe.description}</p>
@@ -220,28 +217,32 @@ const RecipePage = ({ recipes, users }) => {
 
         <div className="recipe-comments">
           <h2 className="recipe-section-title">
-            Commentaires sur la recette {currentRecipe.title}
+            Commentaires sur la recette <span className="colored bold">{currentRecipe.title}</span>
           </h2>
 
-          <div className="recipe-comments-grid">
-            {comments
-              .filter((comment) => comment.recipe?._id === id)
-              .map((comment) => (
-                <div className="recipe-comment" key={comment._id}>
-                  <span className="comment-stars">
-                    <img src={Star} alt="" /> {comment.stars}
-                  </span>
-                  <span className="comment-author">
-                    {users.find((user) => user._id === comment.user._id)
-                      .firstName +
-                      " " +
-                      users.find((user) => user._id === comment.user._id)
-                        .lastName}
-                  </span>
-                  <p className="comment-description">{comment.description}</p>
-                </div>
-              ))}
-          </div>
+          {comments.length > 0 ? (
+            <div className="recipe-comments-grid">
+              {comments
+                .filter((comment) => comment.recipe?._id === id)
+                .map((comment) => (
+                  <div className="recipe-comment" key={comment._id}>
+                    <span className="comment-stars">
+                      <img src={Star} alt="" /> {comment.stars}
+                    </span>
+                    <span className="comment-author">
+                      {users.find((user) => user._id === comment.user._id)
+                        .firstName +
+                        " " +
+                        users.find((user) => user._id === comment.user._id)
+                          .lastName}
+                    </span>
+                    <p className="comment-description">{comment.description}</p>
+                  </div>
+                ))}
+            </div>
+          ) : (
+            <p className="no-comment">Aucun commentaire pour le moment.</p>
+          )}
         </div>
       </div>
     </div>

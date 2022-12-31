@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 const Home = ({ recipes, isLogged }) => {
   const [lastThreeRecipes, setLastThreeRecipes] = useState([]);
   const navigate = useNavigate();
+  console.log(recipes);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -122,6 +123,7 @@ const Home = ({ recipes, isLogged }) => {
                   <>
                     <img src={Star} alt="" />
                     {recipe.stars}
+                    <p>{recipe.comments.length}</p>
                   </>
                 )}
               </p>

@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Login from "../views/Auth/Login";
 import SignUp from "../views/Auth/SignUp";
 import BecomeChef from "../views/BecomeChef/BecomeChef";
+import Community from "../views/Community/Community";
 import Home from "../views/Home/Home";
 import Profile from "../views/Profile/Profile";
 import RecipePage from "../views/RecipePage/RecipePage";
@@ -16,7 +17,8 @@ const MainRouter = ({ users, recipes, isLogged, setIsLogged }) => {
       <Route path="/profile" element={<Profile />} />
       <Route path="/recipes" element={<Recipes recipes={recipes}/>} />
       <Route path="/recipe/:id" element={<RecipePage recipes={recipes} users={users} />} />
-      <Route path="/become-chef" element={<BecomeChef isLogged={isLogged}/>} />
+      <Route path="/become-chef" element={<BecomeChef isLogged={isLogged} />} />
+      <Route path="/community" element={<Community users={users} />} />
       <Route path="*" element={<h1>404</h1>} />
     </Routes>
   );

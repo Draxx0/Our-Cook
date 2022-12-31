@@ -92,6 +92,7 @@ select {
  outline: none;
  border-radius: 10px;
  border: solid 2px $secondary-color;
+ font-family: $text-font;
 }
 
 input::placeholder,
