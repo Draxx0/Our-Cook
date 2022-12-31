@@ -102,6 +102,8 @@ const recipeSchema = new Schema({
           "Cuillère en bois",
           "Mijoteuse",
           "Balance de cuisine",
+          "Spatule",
+          "Douille cannelée",
         ],
       },
       imageUrl: {

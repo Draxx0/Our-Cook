@@ -20,6 +20,14 @@ const userSchema = new Schema({
     required: true,
     min: 6,
   },
+  profilePicture: {
+    type: String,
+    default: null,
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
   chef: [
     {
       type: Schema.Types.ObjectId,
@@ -36,6 +44,12 @@ const userSchema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: "Comment",
+    },
+  ],
+  articles: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Article",
     },
   ],
   createdAt: {

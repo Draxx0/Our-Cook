@@ -31,6 +31,7 @@ const UserController = {
         lastName: req.body.lastName,
         email: req.body.email,
         password: hashedPassword,
+        profilePicture: `https://cdn-icons-png.flaticon.com/512/149/149071.png`
       });
 
       const newUser = await user.save();
@@ -80,7 +81,8 @@ const UserController = {
       const user = await User.find()
         .populate("chef")
         .populate("comments")
-        .populate("favorites");
+        .populate("favorites")
+        .populate("articles");
       res.send(user);
     } catch (error) {
       res.status(400).send({ message: error.message });
