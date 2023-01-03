@@ -10,18 +10,18 @@ const CommentController = {
       const recipe = await Recipe.findById(req.body.recipe);
       recipe.comments.push(comment);
       const comments = await Comment.find();
-       const commentStars = comments.map(comment => {
-        return comment.stars
-      })
+      const commentStars = comments.map((comment) => {
+        return comment.stars;
+      });
       recipe.stars = commentStars.reduce((a, b) => a + b, 0) / comments.length;
-
 
       await recipe.save();
 
       const user = await User.findById(req.body.user);
       user.comments.push(comment);
       await user.save();
-
+      // const token = req.headers.token;
+      // res.header("token", token).send(token);
       res.send(comment);
     } catch (error) {
       res.status(400).send({ message: error.message });

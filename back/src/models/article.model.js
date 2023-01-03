@@ -23,7 +23,7 @@ const articleSchema = new Schema({
   tag: {
     type: String,
     required: true,
-    enum: ["Articles", "Annonces", "Questions"],
+    enum: ["Articles", "Annonces", "Questions", "Cours"],
   },
   createdAt: {
     type: Date,

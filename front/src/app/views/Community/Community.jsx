@@ -99,7 +99,9 @@ const Community = ({ users }) => {
                             ? "green-tag"
                             : article.tag === "Questions"
                             ? "yellow-tag"
-                            : "blue-tag"
+                            : article.tag === "Annonces"
+                            ? "blue-tag"
+                            : "purple-tag"
                         }
                       ></div>
                       <p className="tag-name">{article.tag}</p>
@@ -146,6 +148,13 @@ const Community = ({ users }) => {
               <div className="blue-tag"></div>
               <p id="Annonces" onClick={(e) => handleFilter(e)}>
                 Annonces
+              </p>
+            </div>
+
+            <div className="row">
+              <div className="purple-tag"></div>
+              <p id="Cours" onClick={(e) => handleFilter(e)}>
+                Cours
               </p>
             </div>
           </div>

@@ -53,7 +53,6 @@ const RecipeController = {
       utensils.forEach((utensil) => {
         utensil.forEach((utensil) => {
           utensil.imageUrl = utensil.name + ".png";
-          console.log(utensil.imageUrl);
         });
       });
       res.send(recipe);

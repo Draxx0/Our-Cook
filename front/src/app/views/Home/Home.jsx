@@ -11,13 +11,17 @@ import Star from "../../assets/icons/star.png";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Home = ({ recipes, isLogged }) => {
+const Home = ({ recipes, isLogged, users}) => {
   const [lastThreeRecipes, setLastThreeRecipes] = useState([]);
+  const [currentUser, setCurrentUser] = useState({})
   const navigate = useNavigate();
-  console.log(recipes);
+
+  console.log(currentUser);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    const user = users.find((user) => user._id === JSON.parse(sessionStorage.getItem('user')))
+    setCurrentUser(user)
     const lastThreeRecipes = recipes.slice(-3);
     setLastThreeRecipes(lastThreeRecipes);
   }, [recipes]);
@@ -83,12 +87,16 @@ const Home = ({ recipes, isLogged }) => {
                 appétissante !
               </p>
             </div>
-            <Link
-              to={!isLogged ? "/login" : "/become-chef"}
-              className="yellow-black-button"
-            >
-              Devenir chef
-            </Link>
+            {currentUser?.chef?.length > 0 ? (
+              <Link
+                to={!isLogged ? "/login" : "/become-chef"}
+                className="yellow-black-button"
+              >
+                Devenir chef
+              </Link>
+            ) : (
+              ""
+            )}
           </div>
         </div>
         <div className="right-container">

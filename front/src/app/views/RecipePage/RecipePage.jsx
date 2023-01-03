@@ -11,17 +11,20 @@ import People from "../../assets/icons/people.png";
 import Utensils from "../../assets/icons/utensils.png";
 import utensils from "../../functions/utensilsImgImport";
 
-const RecipePage = ({ recipes, users }) => {
+const RecipePage = ({
+  recipes,
+  users,
+  comments,
+  setComments,
+  fetchComments,
+}) => {
   const [currentRecipe, setCurrentRecipe] = useState({});
-  const [comments, setComments] = useState([]);
   const [totalTime, setCurrentTotalTime] = useState(0);
   const [preparationTime, setCurrentPreparationTime] = useState(0);
   const [cookingTime, setCurrentCookingTime] = useState(0);
+  const [commentData, setCommentData] = useState({});
   const [author, setAuthor] = useState({});
   const { id } = useParams();
-  const Test = utensils.filter((utensil) => {
-    return utensil.includes("Couteau");
-  });
 
   const getCurrentRecipe = async () => {
     const currentRecipe = await recipes.find((recipe) => recipe._id === id);
@@ -36,9 +39,23 @@ const RecipePage = ({ recipes, users }) => {
     setCurrentRecipe(currentRecipe);
   };
 
-  const getComments = async () => {
-    const comments = await commentsServices.findAll();
-    setComments(comments);
+  const handleCommentData = (e) => {
+    const { name, value } = e.target;
+    setCommentData({ ...commentData, [name]: value });
+  };
+
+  const handleSendCommentData = async (e) => {
+    e.preventDefault();
+    commentData.stars = parseInt(commentData.stars);
+    commentData.recipe = currentRecipe._id;
+    commentData.user = JSON.parse(sessionStorage.getItem("user"));
+    try {
+      const response = await commentsServices.create(commentData);
+      setComments(...comments, response);
+      fetchComments();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   function padTo2Digits(num) {
@@ -61,7 +78,7 @@ const RecipePage = ({ recipes, users }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
     getCurrentRecipe();
-    getComments();
+    console.log(users.find((user) => user._id === JSON.parse(sessionStorage.getItem("user"))));
   }, []);
   return (
     <div className="recipe-page">
@@ -195,12 +212,16 @@ const RecipePage = ({ recipes, users }) => {
         <div className="recipe-add-comment">
           <h2 className="recipe-section-title">Laisser votre avis</h2>
 
-          <form className="recipe-comment-form">
+          <form
+            className="recipe-comment-form"
+            onSubmit={handleSendCommentData}
+          >
             <input
               type="text"
               placeholder="Votre note entre 0 et 5"
               id="stars"
               name="stars"
+              onChange={handleCommentData}
             />
             <textarea
               name="description"
@@ -208,16 +229,20 @@ const RecipePage = ({ recipes, users }) => {
               cols="30"
               rows="10"
               placeholder="Votre commentaire"
+              onChange={handleCommentData}
             ></textarea>
-            <button type="submit" className="yellow-black-button">
-              Envoyer
-            </button>
+            <input
+              type="submit"
+              className="yellow-black-button"
+              value="Envoyer"
+            />
           </form>
         </div>
 
         <div className="recipe-comments">
           <h2 className="recipe-section-title">
-            Commentaires sur la recette <span className="colored bold">{currentRecipe.title}</span>
+            Commentaires sur la recette{" "}
+            <span className="colored bold">{currentRecipe.title}</span>
           </h2>
 
           {comments.length > 0 ? (

@@ -1,0 +1,95 @@
+.profile {
+ width: 50%;
+ margin: 200px auto auto auto;
+
+ .profile-header {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+
+  h1 {
+   font-size: 2rem;
+  }
+
+  p {
+   color: gray;
+   font-size: 1.2rem;
+  }
+ }
+
+ .profile-container {
+  margin: 100px auto;
+
+  .column {
+   gap: 20px;
+
+   h2 {
+    font-size: 1.5rem;
+   }
+  }
+ }
+
+ .profile-picture-container {
+  align-items: center;
+  gap: 25px;
+
+  img {
+   height: 92px;
+   width: 92px;
+  }
+
+  .input-wrapper {
+   position: relative;
+   width: 200px;
+   cursor: pointer;
+
+   input {
+    opacity: 0;
+    height: fit-content;
+    width: 100%;
+    cursor: pointer;
+   }
+
+   label {
+    background-color: $main-color;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    padding: 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+   }
+  }
+
+ }
+
+ form {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .form-group {
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+  }
+
+  input {
+   width: 100%;
+   border: solid 3px $main-color;
+   font-family: $title-font;
+  }
+
+  input[type="submit"] {
+   width: fit-content;
+   margin: auto;
+   font-family: $text-font;
+   font-size: 1rem;
+  }
+ }
+}

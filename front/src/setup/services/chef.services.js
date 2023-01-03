@@ -1,6 +1,6 @@
 import instance from "./api.service";
 
-const END_POINT = `/comments`;
+const END_POINT = `/chefs`;
 
 const findAll = async () => {
   const response = await instance.get(END_POINT);
@@ -16,10 +16,11 @@ const remove = async (id) => {
   return await instance.delete(`${END_POINT}/${id}`);
 };
 
-const commentsServices = {
+
+const chefService = {
   findAll,
   create,
   remove,
 };
 
-export default commentsServices;
+export default chefService;

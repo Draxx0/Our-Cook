@@ -31,7 +31,7 @@ const UserController = {
         lastName: req.body.lastName,
         email: req.body.email,
         password: hashedPassword,
-        profilePicture: `https://cdn-icons-png.flaticon.com/512/149/149071.png`
+        profilePicture: `https://cdn-icons-png.flaticon.com/512/149/149071.png`,
       });
 
       const newUser = await user.save();
@@ -63,7 +63,11 @@ const UserController = {
 
       // create and assign a token
       const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
-      res.header("auth-token", token).send(token);
+      const userToken = {
+        token: token,
+        user: user._id,
+      };
+      res.header("token", token).send(userToken);
     } catch (error) {
       res.status(400).send({ message: error.message });
     }
@@ -72,6 +76,20 @@ const UserController = {
     try {
       const deleteUser = await User.findByIdAndDelete(req.params.id);
       res.send(deleteUser);
+    } catch (error) {
+      res.status(400).send({ message: error.message });
+    }
+  },
+  update: async (req, res) => {
+    try {
+      const updateUser = await User.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {
+          new: true,
+        }
+      );
+      res.send(updateUser);
     } catch (error) {
       res.status(400).send({ message: error.message });
     }

@@ -5,7 +5,7 @@ const router = express.Router();
 
 const endPoint = "/comments";
 
-router.post(`${endPoint}`, verify, commentController.create);
+router.post(`${endPoint}`,  commentController.create);
 router.delete(`${endPoint}/:id`, commentController.delete);
 router.get(`${endPoint}`, commentController.getAll);
 router.delete(`${endPoint}`, commentController.deleteAll);

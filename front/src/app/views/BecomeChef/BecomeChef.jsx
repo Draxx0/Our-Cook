@@ -1,20 +1,33 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import chefService from "../../../setup/services/chef.services";
 
-const BecomeChef = ({ isLogged }) => {
+const BecomeChef = ({ isLogged, chefs, setChefs, users }) => {
   const [chefData, setChefData] = useState({});
+  const [currentUser, setCurrentUser] = useState({})
+  const navigate = useNavigate();
 
   const handleGetChefData = (e) => {
     const { name, value } = e.target;
     setChefData({ ...chefData, [name]: value });
   };
-
-  const handleSendChefData = (e) => {
+  const handleSendChefData = async (e) => {
     e.preventDefault();
-    console.log(chefData);
+    const newChef = {
+      user: currentUser._id
+    }
+    try {
+      const response = await chefService.create(newChef)
+      setChefs(...chefs, response)
+      navigate(-1)
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
+    setCurrentUser(users.find((user) => user._id === JSON.parse(sessionStorage.getItem('user'))))
+    console.log(currentUser);
     window.scrollTo(0, 0);
   }, []);
 

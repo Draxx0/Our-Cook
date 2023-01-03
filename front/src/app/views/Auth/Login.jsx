@@ -16,9 +16,9 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await authServices.login(credentials);
-      sessionStorage.setItem("token", response.data);
+      sessionStorage.setItem("token", response.data.token);
+      sessionStorage.setItem("user", JSON.stringify(response.data.user));
       navigate("/");
-      console.log(response);
     } catch (error) {
       alert("Email ou mot de passe incorrect");
       console.log(error);

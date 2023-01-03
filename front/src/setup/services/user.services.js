@@ -16,10 +16,16 @@ const remove = async (id) => {
   return await instance.delete(`${END_POINT}/${id}`);
 };
 
+const update = async (id, credentials) => {
+  const response = await instance.put(`${END_POINT}/${id}`, credentials);
+  return response.data;
+};
+
 const userServices = {
   findAll,
   findeOne,
   remove,
+  update
 };
 
 export default userServices;

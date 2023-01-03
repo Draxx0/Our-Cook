@@ -64,7 +64,7 @@
 
  .recipes-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   column-gap: 100px;
   justify-items: space-between;
   margin-bottom: 100px;
@@ -85,7 +85,7 @@
 
   .recipe-img {
    width: 100%;
-   height: 400px;
+   height: 200px;
    border-radius: 30px;
    object-fit: cover;
    transition: .3s ease-in-out all;
@@ -120,7 +120,11 @@
    align-items: center;
    gap: 10px;
    font-family: $title-font;
-   font-size: 24px;
+   font-size: 18px;
+
+   img{
+    width: 24px;
+   }
 
    p {
     font-size: 18px;
@@ -129,7 +133,7 @@
   }
 
   .recipe-title {
-   font-size: $medium;
+   font-size: $small;
    font-weight: $medium;
    font-family: $text-font;
   }
